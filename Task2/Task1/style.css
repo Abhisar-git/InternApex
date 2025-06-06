@@ -1,0 +1,151 @@
+/* Basic Reset & Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6; /* Light gray background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+    margin: 0;
+    padding: 20px; /* Add some padding on smaller screens */
+    box-sizing: border-box;
+}
+
+/* Container for the form */
+.container {
+    background-color: #ffffff; /* White background for the form */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    width: 100%;
+    max-width: 550px; /* Max width for the form container */
+    box-sizing: border-box;
+}
+
+h2 {
+    text-align: center;
+    color: #2c3e50; /* Darker text color */
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+/* Styling for each form group (label + input) */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block; /* Makes label take full width */
+    margin-bottom: 8px;
+    color: #34495e; /* Slightly lighter dark color */
+    font-weight: 600;
+    font-size: 1.05em;
+}
+
+/* Styling for input fields and select/textarea */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ced4da; /* Light gray border */
+    border-radius: 6px;
+    box-sizing: border-box; /* Include padding in element's total width */
+    font-size: 1em;
+    color: #495057;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Light blue shadow on focus */
+    outline: none; /* Remove default outline */
+}
+
+.form-group textarea {
+    resize: vertical; /* Allow vertical resizing */
+    min-height: 100px; /* Minimum height for textarea */
+}
+
+/* Small text for hints */
+.form-group small {
+    display: block;
+    color: #6c757d; /* Muted gray color */
+    margin-top: 5px;
+    font-size: 0.85em;
+}
+
+/* Checkbox specific styling */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    width: auto; /* Override 100% width */
+    transform: scale(1.2); /* Slightly larger checkbox */
+}
+
+.checkbox-group label {
+    margin-bottom: 0; /* Remove bottom margin for labels next to checkbox */
+    font-weight: normal; /* Normal weight for checkbox label */
+}
+
+/* Submit button styling */
+button[type="submit"] {
+    background-color: #28a745; /* Green button */
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+button[type="submit"]:active {
+    transform: translateY(0); /* Return on click */
+}
+
+/* Basic responsiveness for smaller screens */
+@media (max-width: 600px) {
+    .container {
+        padding: 25px;
+        margin: 10px;
+    }
+
+    h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-size: 1em;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: 0.95em;
+    }
+
+    button[type="submit"] {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+}
