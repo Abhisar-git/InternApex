@@ -1,4 +1,4 @@
-/* Basic Reset & Body Styling */
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f7f6; /* Light gray background */
@@ -11,7 +11,7 @@ body {
     box-sizing: border-box;
 }
 
-/* Container for the form */
+
 .container {
     background-color: #ffffff; /* White background for the form */
     padding: 40px;
@@ -35,14 +35,14 @@ h2 {
 }
 
 .form-group label {
-    display: block; /* Makes label take full width */
+    display: block;
     margin-bottom: 8px;
-    color: #34495e; /* Slightly lighter dark color */
+    color: #34495e; 
     font-weight: 600;
     font-size: 1.05em;
 }
 
-/* Styling for input fields and select/textarea */
+
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="tel"],
@@ -50,9 +50,9 @@ h2 {
 .form-group textarea {
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid #ced4da; /* Light gray border */
+    border: 1px solid #ced4da; 
     border-radius: 6px;
-    box-sizing: border-box; /* Include padding in element's total width */
+    box-sizing: border-box; 
     font-size: 1em;
     color: #495057;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -61,25 +61,25 @@ h2 {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    border-color: #007bff; /* Blue border on focus */
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Light blue shadow on focus */
-    outline: none; /* Remove default outline */
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); 
+    outline: none; 
 }
 
 .form-group textarea {
-    resize: vertical; /* Allow vertical resizing */
-    min-height: 100px; /* Minimum height for textarea */
+    resize: vertical;
+    min-height: 100px; 
 }
 
-/* Small text for hints */
+
 .form-group small {
     display: block;
-    color: #6c757d; /* Muted gray color */
+    color: #6c757d; 
     margin-top: 5px;
     font-size: 0.85em;
 }
 
-/* Checkbox specific styling */
+
 .checkbox-group {
     display: flex;
     align-items: center;
@@ -94,8 +94,8 @@ h2 {
 }
 
 .checkbox-group label {
-    margin-bottom: 0; /* Remove bottom margin for labels next to checkbox */
-    font-weight: normal; /* Normal weight for checkbox label */
+    margin-bottom: 0;
+    font-weight: normal; 
 }
 
 /* Submit button styling */
