@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Super Enhanced Blog</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #283747;
+            color: #fff;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 1px;
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 0.7rem 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 0 20px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #a2d2ff;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .blog-post {
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        .blog-post:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .blog-post h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        .blog-post .meta {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        .blog-post .content {
+            margin-bottom: 15px;
+            font-size: 1em;
+            color: #555;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            max-height: 100px;
+        }
+        .blog-post .content.expanded {
+            max-height: none;
+        }
+        .blog-post .actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+        .blog-post .read-more, .blog-post .edit-btn, .blog-post .delete-btn {
+            background: none;
+            border: none;
+            color: #3498db;
+            cursor: pointer;
+            font-size: 0.9em;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+            text-decoration: underline;
+        }
+        .blog-post .read-more:hover, .blog-post .edit-btn:hover, .blog-post .delete-btn:hover {
+            color: #2980b9;
+        }
+        .blog-post .delete-btn {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: normal;
+        }
+        .blog-post .delete-btn:hover {
+            color: #c0392b;
+        }
+        .blog-post .edit-btn {
+            color: #f39c12;
+            text-decoration: none;
+            font-weight: normal;
+        }
+        .blog-post .edit-btn:hover {
+            color: #e67e22;
+        }
+
+
+        .new-post-form {
+            background-color: #ecf0f1;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .new-post-form h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        .new-post-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+        .new-post-form input[type="text"],
+        .new-post-form textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        .new-post-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .char-count {
+            font-size: 0.85em;
+            color: #666;
+            text-align: right;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+        .new-post-form button {
+            background-color: #27ae60;
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .new-post-form button:hover {
+            background-color: #229a56;
+            transform: translateY(-2px);
+        }
+
+        .search-bar {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .search-bar label {
+            font-weight: bold;
+            color: #333;
+        }
+        .search-bar input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            background-color: #283747;
+            color: #ecf0f1;
+            font-size: 0.9em;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Super Enhanced Blog ✍️</h1>
+        <p>Sharing thoughts, ideas, and knowledge.</p>
+    </header>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#add-post">Add Post</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+        <section class="search-bar">
+            <label for="search-input">Search Posts:</label>
+            <input type="text" id="search-input" placeholder="Search by title or content...">
+        </section>
+
+        <section id="add-post" class="new-post-form">
+            <h3><span id="form-title">Create a New</span> Blog Post</h3>
+            <form id="add-post-form">
+                <input type="hidden" id="post-id">
+
+                <label for="post-title">Title:</label>
+                <input type="text" id="post-title" required>
+
+                <label for="post-author">Author:</label>
+                <input type="text" id="post-author" required>
+
+                <label for="post-content">Content:</label>
+                <textarea id="post-content" required></textarea>
+                <div class="char-count" id="content-char-count">0 characters</div>
+
+                <button type="submit" id="submit-button">Publish Post</button>
+                <button type="button" id="cancel-edit-button" style="display: none; background-color: #95a5a6; margin-left: 10px;">Cancel Edit</button>
+            </form>
+        </section>
+
+        <hr>
+
+        <h2>Recent Posts</h2>
+        <section id="blog-posts-container">
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 My Super Enhanced Blog. All rights reserved. Made with ❤️ in Ghaziabad.</p>
+    </footer>
+
+    <script>
+        const postsContainer = document.getElementById('blog-posts-container');
+        const addPostForm = document.getElementById('add-post-form');
+        const postIdInput = document.getElementById('post-id');
+        const postTitleInput = document.getElementById('post-title');
+        const postAuthorInput = document.getElementById('post-author');
+        const postContentInput = document.getElementById('post-content');
+        const submitButton = document.getElementById('submit-button');
+        const cancelEditButton = document.getElementById('cancel-edit-button');
+        const formTitle = document.getElementById('form-title');
+        const searchInput = document.getElementById('search-input');
+        const contentCharCount = document.getElementById('content-char-count');
+
+        function getFormattedDateAndTime() {
+            const now = new Date();
+            const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            const datePart = now.toLocaleDateString('en-US', dateOptions);
+            const timePart = now.toLocaleTimeString('en-US', timeOptions);
+            return `${datePart} at ${timePart}`;
+        }
+
+        const LOCAL_STORAGE_KEY = 'superEnhancedBlogPosts';
+
+        function loadPostsFromLocalStorage() {
+            const storedPosts = localStorage.getItem(LOCAL_STORAGE_KEY);
+            return storedPosts ? JSON.parse(storedPosts) : [];
+        }
+
+        function savePostsToLocalStorage(posts) {
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(posts));
+        }
+
+        let blogPosts = loadPostsFromLocalStorage();
+        if (blogPosts.length === 0) {
+            blogPosts = [
+                {
+                    id: Date.now() + 1,
+                    title: "🚀 Mastering Responsive Web Design",
+                    author: "Developer Guru",
+                    date: "July 1, 2025 at 10:30:00 AM",
+                    content: "Responsive web design is no longer an option, but a necessity. With devices ranging from tiny smartwatches to massive desktop monitors, ensuring your website looks and functions perfectly across all screen sizes is crucial. This article delves into the principles of responsive design, exploring techniques like fluid grids, flexible images, and media queries. We'll also touch upon mobile-first design approaches and how to debug common responsive issues. Embrace a fluid and adaptable web experience for your users!"
+                },
+                {
+                    id: Date.now() + 2,
+                    title: "🧠 Understanding JavaScript Closures",
+                    author: "Code Explorer",
+                    date: "June 25, 2025 at 02:15:00 PM",
+                    content: "Closures are a fundamental concept in JavaScript, often described as a function bundled together with its lexical environment. While they might seem daunting at first, understanding closures unlocks powerful programming patterns and helps in writing cleaner, more efficient code. This post explains what closures are, how they work, and provides practical examples of their use in everyday JavaScript development, from creating private variables to building higher-order functions. Demystify this essential concept!"
+                }
+            ];
+            savePostsToLocalStorage(blogPosts);
+        }
+
+        function createBlogPostElement(post) {
+            const postDiv = document.createElement('div');
+            postDiv.classList.add('blog-post');
+            postDiv.dataset.postId = post.id;
+
+            const truncatedContent = post.content.length > 250 ?
+                                     post.content.substring(0, 250) + '...' :
+                                     post.content;
+
+            postDiv.innerHTML = `
+                <h2>${post.title}</h2>
+                <div class="meta">By ${post.author} on ${post.date}</div>
+                <div class="content">${truncatedContent}</div>
+                <div class="actions">
+                    ${post.content.length > 250 ? '<button class="read-more" data-action="expand">Read More</button>' : ''}
+                    <button class="edit-btn" data-action="edit">Edit</button>
+                    <button class="delete-btn" data-action="delete">Delete</button>
+                </div>
+            `;
+
+            const readMoreBtn = postDiv.querySelector('.read-more');
+            const contentDiv = postDiv.querySelector('.content');
+            const deleteBtn = postDiv.querySelector('.delete-btn');
+            const editBtn = postDiv.querySelector('.edit-btn');
+
+            if (readMoreBtn) {
+                readMoreBtn.addEventListener('click', () => {
+                    contentDiv.classList.toggle('expanded');
+                    readMoreBtn.textContent = contentDiv.classList.contains('expanded') ? 'Show Less' : 'Read More';
+                    contentDiv.innerHTML = contentDiv.classList.contains('expanded') ? post.content : truncatedContent;
+                });
+            }
+
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', () => {
+                    if (confirm('Are you sure you want to delete this post?')) {
+                        deletePost(post.id);
+                    }
+                });
+            }
+
+            if (editBtn) {
+                editBtn.addEventListener('click', () => {
+                    editPost(post.id);
+                });
+            }
+
+            return postDiv;
+        }
+
+        function renderPosts(filterText = '') {
+            postsContainer.innerHTML = '';
+            const filteredPosts = blogPosts.filter(post =>
+                post.title.toLowerCase().includes(filterText.toLowerCase()) ||
+                post.content.toLowerCase().includes(filterText.toLowerCase())
+            );
+
+            if (filteredPosts.length === 0) {
+                postsContainer.innerHTML = '<p style="text-align: center; color: #777;">No posts found matching your search.</p>';
+            } else {
+                filteredPosts.forEach(post => {
+                    postsContainer.appendChild(createBlogPostElement(post));
+                });
+            }
+        }
+
+        addPostForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const id = postIdInput.value;
+            const title = postTitleInput.value.trim();
+            const author = postAuthorInput.value.trim();
+            const content = postContentInput.value.trim();
+
+            if (title && author && content) {
+                if (id) {
+                    const postIndex = blogPosts.findIndex(p => p.id == id);
+                    if (postIndex > -1) {
+                        blogPosts[postIndex].title = title;
+                        blogPosts[postIndex].author = author;
+                        blogPosts[postIndex].content = content;
+                        blogPosts[postIndex].date = getFormattedDateAndTime() + ' (Edited)'; // Mark as edited
+                    }
+                } else {
+                    const newPost = {
+                        id: Date.now(),
+                        title: title,
+                        author: author,
+                        date: getFormattedDateAndTime(),
+                        content: content
+                    };
+                    blogPosts.unshift(newPost);
+                }
+                savePostsToLocalStorage(blogPosts);
+                renderPosts(searchInput.value);
+                addPostForm.reset();
+                postIdInput.value = '';
+                submitButton.textContent = 'Publish Post';
+                formTitle.textContent = 'Create a New';
+                cancelEditButton.style.display = 'none';
+                contentCharCount.textContent = '0 characters'; // Reset char count
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+
+        function deletePost(idToDelete) {
+            blogPosts = blogPosts.filter(post => post.id !== idToDelete);
+            savePostsToLocalStorage(blogPosts);
+            renderPosts(searchInput.value);
+        }
+
+        function editPost(idToEdit) {
+            const postToEdit = blogPosts.find(post => post.id === idToEdit);
+            if (postToEdit) {
+                postIdInput.value = postToEdit.id;
+                postTitleInput.value = postToEdit.title;
+                postAuthorInput.value = postToEdit.author;
+                postContentInput.value = postToEdit.content;
+                submitButton.textContent = 'Update Post';
+                formTitle.textContent = 'Edit';
+                cancelEditButton.style.display = 'inline-block';
+                postContentInput.dispatchEvent(new Event('input')); // Trigger char count update
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to form
+            }
+        }
+
+        cancelEditButton.addEventListener('click', () => {
+            addPostForm.reset();
+            postIdInput.value = '';
+            submitButton.textContent = 'Publish Post';
+            formTitle.textContent = 'Create a New';
+            cancelEditButton.style.display = 'none';
+            contentCharCount.textContent = '0 characters'; // Reset char count
+        });
+
+        searchInput.addEventListener('input', () => {
+            renderPosts(searchInput.value);
+        });
+
+        postContentInput.addEventListener('input', () => {
+            contentCharCount.textContent = `${postContentInput.value.length} characters`;
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPosts();
+            postContentInput.dispatchEvent(new Event('input')); // Initial char count for default posts
+        });
+    </script>
+</body>
+</html>
